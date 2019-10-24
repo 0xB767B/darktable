@@ -70,7 +70,8 @@ typedef enum dt_gui_view_switch_t
   DT_GUI_VIEW_SWITCH_TO_DARKROOM,
   DT_GUI_VIEW_SWITCH_TO_MAP,
   DT_GUI_VIEW_SWITCH_TO_SLIDESHOW,
-  DT_GUI_VIEW_SWITCH_TO_PRINT
+  DT_GUI_VIEW_SWITCH_TO_PRINT,
+  DT_GUI_VIEW_SWITCH_TO_TIMELAPSE
 } dt_gui_view_switch_to_t;
 
 const char *_ui_panel_config_names[]
@@ -865,9 +866,13 @@ static gboolean _gui_switch_view_key_accel_callback(GtkAccelGroup *accel_group, 
       mode = "slideshow";
       break;
 
-    case DT_GUI_VIEW_SWITCH_TO_PRINT:
-      mode = "print";
-      break;
+  case DT_GUI_VIEW_SWITCH_TO_PRINT:
+    mode = "print";
+    break;
+
+  case DT_GUI_VIEW_SWITCH_TO_TIMELAPSE:
+    mode = "timelapse";
+    break;
   }
 
   /* try switch to mode */
@@ -1216,6 +1221,7 @@ int dt_gui_gtk_init(dt_gui_gtk_t *gui)
   dt_accel_register_global(NC_("accel", "map view"), GDK_KEY_m, 0);
   dt_accel_register_global(NC_("accel", "slideshow view"), GDK_KEY_s, 0);
   dt_accel_register_global(NC_("accel", "print view"), GDK_KEY_p, 0);
+  dt_accel_register_global(NC_("accel", "timelapse view"), GDK_KEY_k, 0);
 
   dt_accel_connect_global("tethering view",
                           g_cclosure_new(G_CALLBACK(_gui_switch_view_key_accel_callback),
@@ -1233,6 +1239,8 @@ int dt_gui_gtk_init(dt_gui_gtk_t *gui)
                                          GINT_TO_POINTER(DT_GUI_VIEW_SWITCH_TO_SLIDESHOW), NULL));
   dt_accel_connect_global("print view", g_cclosure_new(G_CALLBACK(_gui_switch_view_key_accel_callback),
                                                      GINT_TO_POINTER(DT_GUI_VIEW_SWITCH_TO_PRINT), NULL));
+  dt_accel_connect_global("timelapse view", g_cclosure_new(G_CALLBACK(_gui_switch_view_key_accel_callback),
+                                                     GINT_TO_POINTER(DT_GUI_VIEW_SWITCH_TO_TIMELAPSE), NULL));
 
   // register_keys for applying styles
   init_styles_key_accels();
