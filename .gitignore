@@ -18,3 +18,6 @@ compile_commands.json
 .cproject
 .project
 .settings/
+install/
+.ccls-cache/
+

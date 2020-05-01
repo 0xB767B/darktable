@@ -283,8 +283,14 @@ if [ $ADDRESS_SANITIZER -ne 0 ] ; then
 fi
 
 
-cmd_config="${ASAN_FLAGS}cmake -G \"$BUILD_GENERATOR\" -DCMAKE_INSTALL_PREFIX=${INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${CMAKE_MORE_OPTIONS} \"$DT_SRC_DIR\""
+cmd_config="${ASAN_FLAGS}cmake -G \"$BUILD_GENERATOR\" -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_INSTALL_PREFIX=${INSTALL_PREFIX} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${CMAKE_MORE_OPTIONS} \"$DT_SRC_DIR\""
+echo "------------------------------------------------------------------------------"
+echo $cmd_config
+echo "------------------------------------------------------------------------------"
 cmd_build="cmake --build "$BUILD_DIR" -- -j$MAKE_TASKS"
+echo "------------------------------------------------------------------------------"
+echo $cmd_build
+echo "------------------------------------------------------------------------------"
 cmd_install="${SUDO}cmake --build \"$BUILD_DIR\" --target install -- -j$MAKE_TASKS"
 
 
