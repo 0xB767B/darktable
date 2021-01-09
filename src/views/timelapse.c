@@ -1,4 +1,5 @@
 // https://github.com/fhrtms/darktable.git
+// https://www.youtube.com/watch?v=vUGtla-q8OE
 
 #include "common/collection.h"
 #include "common/darktable.h"
@@ -13,6 +14,7 @@ DT_MODULE(1)
 typedef struct dt_timelapse_t
 {
   int dummy;
+  GtkWidget* button;
 } dt_timelapse_t;
 
 
@@ -103,8 +105,19 @@ void enter(dt_view_t *self)
 
   //  dt_control_signal_connect(darktable.signals, DT_SIGNAL_TIMELAPSE_SET_EXPOSURE_GAIN_END,
   //                            G_CALLBACK(_set_exposure_gain_end), (gpointer)self);
+////////////////////////////////////////////////////////////////////////////////
 
+  d->button = gtk_button_new_with_label("HELLO");
 
+  /* add map to center widget */
+  gtk_overlay_add_overlay(GTK_OVERLAY(dt_ui_center_base(darktable.gui->ui)), GTK_WIDGET(d->button));
+
+  // ensure the log msg widget stay on top
+  /* gtk_overlay_reorder_overlay(GTK_OVERLAY(dt_ui_center_base(darktable.gui->ui)), */
+  /*                             gtk_widget_get_parent(dt_ui_log_msg(darktable.gui->ui)), -1); */
+
+  gtk_widget_show_all(GTK_WIDGET(d->button));
+  ////////////////////////////////////////////////////////////////////////////////
 }
 
 // mode left (is called after the new try_enter has succeeded)
